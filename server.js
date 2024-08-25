@@ -9,6 +9,10 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+app.get('/createDeck', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'createDeck.html'));
+})
+
 app.listen(port, () => {
     console.log(`Running at: ${port}`);
 });
