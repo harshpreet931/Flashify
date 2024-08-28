@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     let quizContainer = document.getElementById('quizContainer');
+    let result = document.getElementById('result');
     let decks = JSON.parse(localStorage.getItem('decks')) || [];
 
     if(decks.length === 0) {
@@ -7,21 +8,47 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
-    decks.forEach(deck => {
-        let [term, options, answer] = deck.split('|').map(s=>s.trim());
-        let optionsArray = options.split(',').map(s=>s.trim());
+    let visited = [];
 
-        let quizItem = document.createElement('div');
-        quizItem.innerHTML = `
-            <p>${term}</p>
-            ${optionsArray.map(option => `<button>${option}</button>`).join('')}
+    function quizNext() {
+        if(visited.length === decks.length) {
+            quizContainer.innerHTML = '<h2>You have completed the quiz!</h2>';
+            return;
+        }
+
+        let randomIndex;
+        do {
+            randomIndex = Math.floor(Math.random() * decks.length);
+        } while(visited.includes(randomIndex));
+
+        let deck = decks[randomIndex];
+        visited.push(randomIndex);
+
+        let [term, options, answer] = deck.split('|');
+        let optionsArray = options.split(',');
+
+        quizContainer.innerHTML = `
+            <h1>${term}</h1>
+            ${optionsArray.map(option => `<button>${option.trim()}</button>`).join('')}
         `;
-        quizContainer.appendChild(quizItem);
-        quizItem.addEventListener('click', function(e) {
-            if(e.target.classList.contains('option')) {
-                let isCorrect = e.target.testContent.trim() === answer;
-                alert(isCorrect ? 'Correct!' : 'Incorrect!');
-            }
-        })
-    })
-})
+
+        // add event listener to the buttons
+        let buttons = document.querySelectorAll('button');
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                if(this.textContent === answer.trim()) {
+                    result.innerHTML = 'Correct Answer!';
+                } else {
+                    result.innerHTML = 'Wrong Answer!';
+                }
+
+                setTimeout(() => {
+                    result.innerHTML = ''; // Clear the result after a short delay
+                    quizNext(); // Move to the next question
+                }, 1000);
+            });
+        });
+    }
+
+    quizNext(); // Start the quiz
+});
