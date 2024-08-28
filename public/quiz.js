@@ -32,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function() {
             ${optionsArray.map(option => `<button>${option.trim()}</button>`).join('')}
         `;
 
-        // add event listener to the buttons
         let buttons = document.querySelectorAll('button');
         buttons.forEach(button => {
             button.addEventListener('click', function() {
@@ -43,12 +42,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
 
                 setTimeout(() => {
-                    result.innerHTML = ''; // Clear the result after a short delay
-                    quizNext(); // Move to the next question
+                    result.innerHTML = '';
+                    quizNext();
                 }, 1000);
             });
         });
     }
 
-    quizNext(); // Start the quiz
+    quizNext();
 });
