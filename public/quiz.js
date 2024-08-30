@@ -30,30 +30,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
         quizContainer.innerHTML = `
             <h1>${term}</h1>
-            ${optionsArray.map(option => `<button class="btn-added">${option.trim()}</button>`).join('')}
+            <div class="btns-styled">${optionsArray.map(option => `<button class="btn-added">${option.trim()}</button>`).join('')}</div>
         `;
 
         let buttons = document.querySelectorAll('button');
         buttons.forEach(button => {
             button.addEventListener('click', function() {
                 if(this.textContent === answer.trim()) {
-                    result.innerHTML = 'Correct Answer!';
                     correct++;
                 } else {
-                    result.innerHTML = 'Wrong Answer!';
                     wrong++;
                 }
 
                 let progress = document.getElementById('progress');
                 progress.innerHTML = `Correct: ${correct} | Wrong: ${wrong}`;
-                
+
                 setTimeout(() => {
                     result.innerHTML = '';
                     quizNext();
-                }, 1000);
+                }, 0);
             });
         });
     }
 
     quizNext();
+
+    quizContainer.className = 'quiz-styled';
+    btns.className = 'btns-styled'
+    button.className = 'btn-added';
 });

@@ -15,7 +15,24 @@ body {
   color: white;
 }
 
-#title {
-    margin-top: -150px;
+.quiz-styled {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
+.btns-styled {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.btn-added {
+    background: #1E2A32;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
