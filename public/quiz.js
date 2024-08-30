@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         quizContainer.innerHTML = `
             <h1>${term}</h1>
-            ${optionsArray.map(option => `<button>${option.trim()}</button>`).join('')}
+            ${optionsArray.map(option => `<button class="btn-added">${option.trim()}</button>`).join('')}
         `;
 
         let buttons = document.querySelectorAll('button');
