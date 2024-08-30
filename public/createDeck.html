@@ -4,17 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Your Deck</title>
+    <link rel="stylesheet" href="createDeck_styles.css">
 </head>
 <body>
-    <h1>Create A Deck</h1>
-    <form id="deckForm">
-        <label for="deckInput">Enter you Deck:</label>
-        <input type="text" id="deckInput" placeholder="Format Example:- Schwarz | Black, White, Red, Blue | Black">
-        <button type="submit">Save Deck</button>
-    </form>
+    <div class="container">
+        <h1 id="title">Create A Deck</h1>
+        <form id="deckForm">
+            <label for="deckInput">Enter you Deck:</label>
+            <input type="text" id="deckInput" placeholder="Format Example:- Schwarz | Black, White, Red, Blue | Black">
+            <button type="submit">Save Deck</button>
+        </form>
 
-    <h2>Your current deck</h2>
-    <div id="deckShow"></div>
+        <h2>Your current deck</h2>
+        <div id="deckShow"></div>
+    </div>
 
     <script src="createDeck.js"></script>
 </body>
