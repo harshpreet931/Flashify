@@ -55,7 +55,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     quizNext();
 
+
+    let progress = document.getElementById('progress');
+    let divBtn = document.getElementsByClassName('btns-styled');
+    let buttons = document.getElementsByClassName('btn-added');
     quizContainer.className = 'quiz-styled';
-    btns.className = 'btns-styled'
-    button.className = 'btn-added';
+    divBtn.className = 'btns-styled';
+    buttons.className = 'btn-added';
+    progress.className = 'progress-styled';
 });

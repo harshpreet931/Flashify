@@ -36,3 +36,8 @@ body {
     border-radius: 5px;
     cursor: pointer;
 }
+
+.progress-styled {
+    padding-top: 50px;
+    color: antiquewhite;
+}
