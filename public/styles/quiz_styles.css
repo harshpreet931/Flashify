@@ -16,28 +16,41 @@ body {
 }
 
 .quiz-styled {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .btns-styled {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
 }
 
 .btn-added {
-    background: #1E2A32;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
+  background: #1E2A32;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .progress-styled {
-    padding-top: 50px;
-    color: antiquewhite;
+  padding-top: 50px;
+  color: antiquewhite;
+}
+
+#btn-back {
+  background: #1E2A32;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: white;
+  border: none;
+  font-size: 20px;
+  padding: 20px 30px;
+  border-radius: 5px;
+  cursor: pointer;
 }
