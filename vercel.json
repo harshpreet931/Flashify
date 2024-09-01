@@ -1,6 +1,14 @@
 {
-    "rewrites": [
-      { "source": "/(.*)", "destination": "/" }
+    "version": 2,
+    "builds": [
+      {
+        "src": "server.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      { "src": "/createDeck", "dest": "server.js" },
+      { "src": "/quiz", "dest": "server.js" },
+      { "src": "/(.*)", "dest": "server.js" }
     ]
-}
-  
+  }
