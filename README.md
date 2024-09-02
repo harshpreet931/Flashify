@@ -1,6 +1,6 @@
 ![Banner Image](./public/images/bannerImg.png)
 
-Welcome to the **Flash Card Quiz Game**! This project is a simple, quick and a responsive web application that allows users to create custom flash card decks and quiz themselves to aid their learning! 
+Welcome to the **Flash Card Learning App**! This project is a simple, quick and a responsive web application that allows users to create custom flash card decks and quiz themselves to aid their learning! 
 
 ---
 
