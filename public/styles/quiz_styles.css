@@ -15,6 +15,41 @@ body {
   color: white;
 }
 
+.deck-grid {
+  font-family: 'Poppins', sans-serif;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.deck-preview {
+  background-color: #f0f0f0;
+  color: #1E2A32;
+  border-radius: 10px;
+  padding: 20px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  overflow: hidden;
+}
+
+.deck-preview:hover {
+  transform: scale(1.05);
+}
+
+.deck-title {
+  font-family: bold;
+  margin-bottom: 10px;
+}
+
+.deck-content {
+  font-size: 14px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
 .quiz-styled {
   display: flex;
   justify-content: center;

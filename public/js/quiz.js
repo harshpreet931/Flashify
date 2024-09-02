@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let result = document.getElementById('result');
     let allDecks = JSON.parse(localStorage.getItem('allDecks')) || {};
     let currentDeck = [];
+    let pageTitle = document.getElementById('pageTitle');
     
     // ----------------- for Styling and Progress -----------------
     let progress = document.getElementById('progress');
@@ -11,28 +12,60 @@ document.addEventListener('DOMContentLoaded', function() {
     let buttons = document.getElementsByClassName('btn-added');
     let correct = 0, wrong = 0;
 
-    if(decks.length === 0) {
+    if(allDecks.length === 0) {
         quizContainer.innerHTML = 'No decks to quiz, Add a deck to start.';
         return;
+    }
+
+    function createDeckGrid() {
+        for(let deckName in allDecks) {
+            let deckPreview = document.createElement('div');
+            deckPreview.className = 'deck-preview';
+            deckPreview.innerHTML = `
+                <div class="deck-title">${deckName}</div>
+                <div class="deck-content">${getPreviewContent(allDecks[deckName])}</div>
+            `;
+            deckPreview.addEventListener('click', () => startQuiz(deckName));
+            deckGrid.appendChild(deckPreview);
+        }
+    }
+
+    function getPreviewContent(deck) {
+        let previewContent = '';
+        deck.forEach(card => {
+            let [term, options] = card.split('|');
+            previewContent += `<div>${term} - ${options}</div>`;
+        });
+        return previewContent.length > 50 ? previewContent.substring(0, 50) + '...' : previewContent;
+    }
+
+    function startQuiz(deckName) {
+        currentDeck = [...allDecks[deckName]];
+        correct = 0, wrong = 0;
+        deckGrid.style.display = 'none';
+        quizContainer.style.display = 'block';
+        pageTitle.style.display = 'none';
+
+        quizNext();
     }
 
     let visited = [];
 
     function quizNext() {
-        if(visited.length === decks.length) {
+        if(visited.length === currentDeck.length) {
             quizContainer.innerHTML = '<h2>You have completed the quiz!</h2>';
             return;
         }
 
         let randomIndex;
         do {
-            randomIndex = Math.floor(Math.random() * decks.length);
+            randomIndex = Math.floor(Math.random() * currentDeck.length);
         } while(visited.includes(randomIndex));
 
-        let deck = decks[randomIndex];
+        let card = currentDeck[randomIndex];
         visited.push(randomIndex);
 
-        let [term, options, answer] = deck.split('|');
+        let [term, options, answer] = card.split('|');
         let optionsArray = options.split(',');
 
         quizContainer.innerHTML = `
@@ -40,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="btns-styled">${optionsArray.map(option => `<button class="btn-added">${option.trim()}</button>`).join('')}</div>
         `;
 
-        let buttons = document.querySelectorAll('button');
+        let buttons = document.querySelectorAll('.btn-added');
         buttons.forEach(button => {
             button.addEventListener('click', function() {
                 if(this.textContent === answer.trim()) {
@@ -49,7 +82,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     wrong++;
                 }
 
-                let progress = document.getElementById('progress');
                 progress.innerHTML = `Correct: ${correct} | Wrong: ${wrong}`;
 
                 setTimeout(() => {
@@ -60,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    quizNext();
+    createDeckGrid();
     quizContainer.className = 'quiz-styled';
     divBtn.className = 'btns-styled';
     buttons.className = 'btn-added';
