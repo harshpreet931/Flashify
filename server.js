@@ -17,6 +17,10 @@ app.get('/quiz', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'quiz.html'));
 });
 
+app.get('/previousScores', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'previousScores.html'));
+})
+
 app.listen(port, () => {
     console.log(`Running at: ${port}`);
 });

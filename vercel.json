@@ -9,6 +9,7 @@
     "routes": [
       { "src": "/createDeck", "dest": "server.js" },
       { "src": "/quiz", "dest": "server.js" },
+      { "src": "/previousScores", "dest": "server.js"},
       { "src": "/(.*)", "dest": "server.js" }
     ]
   }
