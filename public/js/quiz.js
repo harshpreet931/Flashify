@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let allDecks = JSON.parse(localStorage.getItem('allDecks')) || {};
     let currentDeck = [];
     let pageTitle = document.getElementById('pageTitle');
+    let btnBack = document.getElementById('btn-back-a');
     
     // ----------------- for Styling and Progress -----------------
     let progress = document.getElementById('progress');
@@ -22,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let deckPreview = document.createElement('div');
             deckPreview.className = 'deck-preview';
             deckPreview.innerHTML = `
-                <div class="deck-title">${deckName}</div>
+                <div class="deck-title">${deckName} - ${allDecks[deckName].length}</div>
                 <div class="deck-content">${getPreviewContent(allDecks[deckName])}</div>
             `;
             deckPreview.addEventListener('click', () => startQuiz(deckName));
@@ -36,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let [term, options] = card.split('|');
             previewContent += `<div>${term} - ${options}</div>`;
         });
-        return previewContent.length > 50 ? previewContent.substring(0, 50) + '...' : previewContent;
+        return previewContent.length > 75 ? previewContent.substring(0, 75) + '...' : previewContent;
     }
 
     function startQuiz(deckName) {
@@ -45,6 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
         deckGrid.style.display = 'none';
         quizContainer.style.display = 'block';
         pageTitle.style.display = 'none';
+        btnBack.href = '/quiz';
 
         quizNext();
     }
