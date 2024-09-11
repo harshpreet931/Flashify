@@ -45,7 +45,7 @@ body {
 }
 
 .deck-title {
-  font-family: bold;
+  font-family: 'Poppins', sans-serif !important;
   margin-bottom: 10px;
 }
 
