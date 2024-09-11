@@ -91,4 +91,16 @@ footer a {
   footer {
     font-size: 12px;
   }
+
+  @keyframes shine {
+    0% {
+      background-position: 0;
+    }
+    50% {
+      background-position: 140px;
+    }
+    100% {
+      background-position: 290px;
+    }
+  }
 }
