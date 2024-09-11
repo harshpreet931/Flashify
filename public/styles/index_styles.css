@@ -13,6 +13,16 @@ body {
   width: 100%;
   flex-direction: column;
 }
+
+.a-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1000px;
+  width: 100%;
+  justify-content: center;
+  margin-top: 30px;
+}
   
 .btn-shine {
   color: #ffffff;
@@ -23,6 +33,7 @@ body {
   animation: shine 5s infinite linear;
   font-weight: 600;
   font-size: 32px;
+  margin-bottom: 20px;
 }
   
 @keyframes shine {
@@ -40,13 +51,14 @@ body {
 .a-link {
   text-decoration: none;
   color: #ffffff;
-  margin: 30px;
   font-size: 20px;
   font-weight: 700;
   background: rgb(34,193,195);
   background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
   background-clip: text;
   color: transparent;
+  text-align: center;
+  padding: 10px;
 }
 
 footer {
@@ -63,4 +75,20 @@ footer {
 footer a {
   color: white;
   text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .btn-shine {
+    font-size: 20px;
+  }
+  .a-grid {
+    grid-template-columns: 1fr;
+    max-width: 300px;
+  }
+  .a-link {
+    font-size: 14px;
+  }
+  footer {
+    font-size: 12px;
+  }
 }
