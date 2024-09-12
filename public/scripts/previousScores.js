@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let scores = document.querySelector('.scores');
 
     function displayScores() {
-        if (allResults.length === 0) {
+        if (Object.entries(allResults).length === 0) {
             scores.innerHTML = '<p class="no-scores">No previous scores to display.</p>';
         }
         else {
