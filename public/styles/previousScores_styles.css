@@ -16,6 +16,27 @@ body {
   box-sizing: border-box;
 }
 
+#btn-back {
+  background: #1E2A32;
+  font-family: 'Poppins', sans-serif;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: white;
+  border: none;
+  font-size: 20px;
+  padding: 20px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s ease;
+}
+
+#btn-back:hover {
+  background: #365970;
+  transform: scale(1.05);
+}
+
 .prev {
   color: aliceblue;
   margin-bottom: 20px;
@@ -47,8 +68,6 @@ body {
 }
 
 .no-scores {
-  text-align: center;
-  font-style: italic;
   color: aliceblue;
 }
 
