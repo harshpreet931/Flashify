@@ -56,6 +56,16 @@ document.addEventListener('DOMContentLoaded', function() {
     function quizNext(deckName) {
         if(visited.length === currentDeck.length) {
             quizContainer.innerHTML = '<h2>You have completed the quiz!</h2>';
+            let quizResult = {
+                total: currentDeck.length,
+                correct: correct,
+                wrong: wrong,
+                date: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString(),
+                deckName: deckName
+            }
+            let allResults = JSON.parse(localStorage.getItem('allResults')) || {};
+            allResults[Date.now()] = quizResult;
+            localStorage.setItem('allResults', JSON.stringify(allResults));
             return;
         }
 
