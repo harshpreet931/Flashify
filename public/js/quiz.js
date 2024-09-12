@@ -48,12 +48,12 @@ document.addEventListener('DOMContentLoaded', function() {
         pageTitle.style.display = 'none';
         btnBack.href = '/quiz';
 
-        quizNext();
+        quizNext(deckName);
     }
 
     let visited = [];
 
-    function quizNext() {
+    function quizNext(deckName) {
         if(visited.length === currentDeck.length) {
             quizContainer.innerHTML = '<h2>You have completed the quiz!</h2>';
             return;
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 setTimeout(() => {
                     result.innerHTML = '';
-                    quizNext();
+                    quizNext(deckName);
                 }, 0);
             });
         });
