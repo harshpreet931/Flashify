@@ -9,13 +9,55 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 95vh;
+  min-height: 95vh;
   width: 100%;
   flex-direction: column;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .prev {
   color: aliceblue;
-  position: absolute;
-  top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.scores {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.scores-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-family: 'Poppins', sans-serif;
+  color: aliceblue;
+  min-width: 600px; 
+}
+
+.scores-table th, .scores-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+.scores-table th {
+  background-color: #1a2629;
+}
+
+.no-scores {
+  text-align: center;
+  font-style: italic;
+  color: aliceblue;
+}
+
+@media screen and (max-width: 600px) {
+  .scores-table {
+    font-size: 14px;
+  }
+
+  .scores-table th, .scores-table td {
+    padding: 8px;
+  }
 }
