@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Fetch the previous scores from localStorage and display them
     let allResults = JSON.parse(localStorage.getItem('allResults')) || {};
     let scores = document.querySelector('.scores');
 
