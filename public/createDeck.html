@@ -3,31 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Your Deck</title>
+    <title>Create A Deck</title>
     <link rel="stylesheet" href="./styles/createDeck_styles.css">
     <link rel="icon" type="image/svg+xml" href="./images/flashCardLogo.png">
 </head>
 <body>
-    <script defer src="./scripts/createDeck.js"></script>
     <a href="/"><button id="btn-back">Go Back</button></a>
+
     <div class="container">
         <h1 id="title">Create A Deck</h1>
+
         <form id="deckForm">
-            <label for="deckName">Enter Deck Name:</label>
-            <input type="text" id="deckName" required>
-            <br>
-            <label for="deckInput">Enter you Deck:</label>
-            <input type="text" id="deckInput" placeholder="Format Example:- Schwarz | Black, White, Red, Blue | Black">
-            <br>
+            <input type="text" id="deckName" placeholder="Enter Deck Name" required>
+            <input type="text" id="deckInput" placeholder="Enter your Card">
             <button type="submit">Add Card</button>
         </form>
+
         <button id="saveDeck">Save Deck</button>
 
         <h2>Your current deck</h2>
         <div id="deckShow"></div>
 
         <h2>All Decks</h2>
-        <div id="allDecks"></div>
+        <div id="allDecks" class="deck-grid"></div>
     </div>
+
+    <!-- Modal for editing deck -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalDeckName"></h2>
+            <div id="modalDeckContent"></div>
+        </div>
+    </div>
+
+    <script src="./scripts/createDeck.js"></script>
 </body>
 </html>

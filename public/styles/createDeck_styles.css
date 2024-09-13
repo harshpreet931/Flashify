@@ -1,47 +1,119 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-*{
-  font-family: 'Poppins', sans-serif;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+* {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  background: #0B1215;
+    background: #0B1215;
+    color: white;
 }
 
 .container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 95vh;
-  width: 100%;
-  flex-direction: column;
-  color: white;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
 #title {
-  margin-top: -150px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#deckForm {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+input, button {
+    padding: 10px;
+    font-size: 16px;
+}
+
+button {
+    cursor: pointer;
+    background: #1E2A32;
+    color: white;
+    border: none;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #365970;
 }
 
 #btn-back {
-  background: #1E2A32;
-  font-family: 'Poppins', sans-serif;
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  color: white;
-  border: none;
-  font-size: 20px;
-  padding: 20px 30px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.3s ease;
+    position: absolute;
+    top: 20px;
+    left: 20px;
 }
 
-#btn-back:hover {
-  background: #365970;
-  transform: scale(1.05);
+.deck-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.deck-item {
+    background: #1E2A32;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.deck-item h3 {
+    margin-bottom: 10px;
+}
+
+.deck-item button {
+    margin-top: 10px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #1E2A32;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    #deckForm {
+        flex-direction: column;
+    }
 }
