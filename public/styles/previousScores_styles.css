@@ -1,8 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
+* {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   background: #0B1215;
-  font-family: 'Poppins', sans-serif;
 }
 
 .container {
@@ -14,27 +20,6 @@ body {
   flex-direction: column;
   padding: 20px;
   box-sizing: border-box;
-}
-
-#btn-back {
-  background: #1E2A32;
-  font-family: 'Poppins', sans-serif;
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  color: white;
-  border: none;
-  font-size: 20px;
-  padding: 20px 30px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.3s ease;
-}
-
-#btn-back:hover {
-  background: #365970;
-  transform: scale(1.05);
 }
 
 .prev {
@@ -70,6 +55,45 @@ body {
 .no-scores {
   color: aliceblue;
   text-align: center;
+}
+
+#btn-back {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #1E2A32;
+  color: white;
+  border: none;
+  font-size: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s ease;
+  z-index: 1000;
+  border-radius: 0 0 5px 0;
+}
+
+#btn-back:hover {
+  background: #365970;
+}
+
+.back-icon {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  #btn-back {
+      padding: 10px;
+      font-size: 24px;
+  }
+
+  .back-text {
+      display: none;
+  }
+
+  .back-icon {
+      display: inline;
+  }
 }
 
 @media screen and (max-width: 600px) {
