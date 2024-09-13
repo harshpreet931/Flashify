@@ -46,12 +46,6 @@ button:hover {
     background: #365970;
 }
 
-#btn-back {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-}
-
 .deck-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -110,6 +104,45 @@ button:hover {
     color: #fff;
     text-decoration: none;
     cursor: pointer;
+}
+
+#btn-back {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #1E2A32;
+  color: white;
+  border: none;
+  font-size: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s ease;
+  z-index: 1000;
+  border-radius: 0 0 5px 0;
+}
+
+#btn-back:hover {
+  background: #365970;
+}
+
+.back-icon {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  #btn-back {
+      padding: 10px;
+      font-size: 24px;
+  }
+
+  .back-text {
+      display: none;
+  }
+
+  .back-icon {
+      display: inline;
+  }
 }
 
 @media (max-width: 600px) {
