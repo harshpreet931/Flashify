@@ -23,21 +23,23 @@ document.addEventListener('DOMContentLoaded', function() {
                     <tbody>
             `;
 
-            for (let timestamp in allResults) {
-                let result = allResults[timestamp];
-                let percentage = ((result.correct / result.total) * 100).toFixed(2);
-                
-                table += `
-                    <tr>
-                        <td>${result.date}</td>
-                        <td>${result.deckName}</td>
-                        <td>${result.correct}</td>
-                        <td>${result.wrong}</td>
-                        <td>${result.total}</td>
-                        <td>${percentage}%</td>
-                    </tr>
-                `;
-            }
+            // Convert object to array, sort in reverse order, and create table rows
+            Object.entries(allResults)
+                .sort((a, b) => b[0] - a[0])  // Sort by timestamp (key) in descending order
+                .forEach(([timestamp, result]) => {
+                    let percentage = ((result.correct / result.total) * 100).toFixed(2);
+                    
+                    table += `
+                        <tr>
+                            <td>${result.date}</td>
+                            <td>${result.deckName}</td>
+                            <td>${result.correct}</td>
+                            <td>${result.wrong}</td>
+                            <td>${result.total}</td>
+                            <td>${percentage}%</td>
+                        </tr>
+                    `;
+                });
 
             table += `
                     </tbody>
@@ -48,6 +50,6 @@ document.addEventListener('DOMContentLoaded', function() {
             scores.innerHTML = table;
         }
     }
-    
+
     displayScores();
 });
