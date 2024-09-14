@@ -26,35 +26,129 @@ body {
   color: aliceblue;
   margin-bottom: 20px;
   text-align: center;
+  font-size: 2.5rem;
+  font-weight: 600;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  animation: fadeInDown 0.8s ease-out;
 }
 
 .scores {
   width: 100%;
   overflow-x: auto;
+  animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInDown {
+  from { 
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from { 
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .scores-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0 10px;
   margin-top: 20px;
   font-family: 'Poppins', sans-serif;
   color: aliceblue;
-  min-width: 600px; 
+  min-width: 600px;
 }
 
 .scores-table th, .scores-table td {
-  border: 1px solid #ddd;
-  padding: 12px;
+  padding: 15px;
   text-align: left;
+  border: none;
 }
 
 .scores-table th {
-  background-color: #1a2629;
+  background-color: #1E2A32;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+}
+
+.scores-table th::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, transparent, #4A90E2, transparent);
+  transform: translateX(-100%);
+  animation: slideIn 0.5s forwards;
+}
+
+.scores-table tr {
+  background-color: rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+  animation: slideIn 0.5s forwards;
+  opacity: 0;
+}
+
+.scores-table tr:nth-child(even) {
+  animation-delay: 0.1s;
+}
+
+.scores-table tr:nth-child(odd) {
+  animation-delay: 0.2s;
+}
+
+.scores-table tr:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.scores-table td {
+  position: relative;
+  overflow: hidden;
+}
+
+.scores-table td::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: 0.5s;
+}
+
+.scores-table tr:hover td::before {
+  left: 100%;
 }
 
 .no-scores {
   color: aliceblue;
   text-align: center;
+  font-size: 1.2rem;
+  margin-top: 20px;
+  animation: fadeIn 1s ease-out;
 }
 
 #btn-back {
@@ -83,16 +177,36 @@ body {
 
 @media (max-width: 768px) {
   #btn-back {
-      padding: 10px;
-      font-size: 24px;
+    padding: 10px;
+    font-size: 24px;
   }
 
   .back-text {
-      display: none;
+    display: none;
   }
 
   .back-icon {
-      display: inline;
+    display: inline;
+  }
+
+  .prev {
+    font-size: 2rem;
+  }
+
+  .scores-table tr {
+    animation: none;
+    opacity: 1;
+  }
+
+  .scores-table tr:active {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  .scores-table td::before {
+    display: none;
   }
 }
 
@@ -102,6 +216,10 @@ body {
   }
 
   .scores-table th, .scores-table td {
-    padding: 8px;
+    padding: 10px;
+  }
+
+  .prev {
+    font-size: 1.8rem;
   }
 }

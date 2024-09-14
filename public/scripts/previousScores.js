@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
             table += `
                     </tbody>
                 </table>
+            </div>
             `;
 
             scores.innerHTML = table;
