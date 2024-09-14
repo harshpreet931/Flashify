@@ -1,0 +1,17 @@
+{
+    "Basic Math": [
+      "2 + 2 = ?|3,4,5,6|4",
+      "5 x 3 = ?|10,15,20,25|15",
+      "9 - 4 = ?|3,4,5,6|5"
+    ],
+    "World Capitals": [
+      "Capital of France|London,Berlin,Paris,Madrid|Paris",
+      "Capital of Japan|Beijing,Tokyo,Seoul,Bangkok|Tokyo",
+      "Capital of Brazil|Rio de Janeiro,Sao Paulo,Brasilia,Buenos Aires|Brasilia"
+    ],
+    "Science Facts": [
+      "Largest planet in our solar system|Mars,Jupiter,Saturn,Earth|Jupiter",
+      "Chemical symbol for gold|Au,Ag,Fe,Cu|Au",
+      "Number of bones in adult human body|206,186,226,246|206"
+    ]
+}

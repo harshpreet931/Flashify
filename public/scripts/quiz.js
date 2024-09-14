@@ -13,22 +13,41 @@ document.addEventListener('DOMContentLoaded', function() {
     let buttons = document.getElementsByClassName('btn-added');
     let correct = 0, wrong = 0;
 
-    if(allDecks.length === 0) {
-        quizContainer.innerHTML = 'No decks to quiz, Add a deck to start.';
-        return;
+    // Load prebuilt decks from JSON file
+    fetch('/prebuilt_decks.json')
+        .then(response => response.json())
+        .then(prebuiltDecks => {
+            // Combine prebuilt and user decks
+            let combinedDecks = {...prebuiltDecks, ...allDecks};
+
+            if(Object.keys(combinedDecks).length === 0) {
+                quizContainer.innerHTML = 'No decks to quiz, Add a deck to start.';
+                return;
+            }
+
+            createDeckGrid(combinedDecks, prebuiltDecks);
+        })
+        .catch(error => {
+            console.error('Error loading prebuilt decks:', error);
+            // If there's an error, just use user decks
+            createDeckGrid(allDecks, {});
+        });
+
+    function createDeckGrid(combinedDecks, prebuiltDecks) {
+        for(let deckName in combinedDecks) {
+            createDeckPreview(deckName, combinedDecks[deckName], deckName in prebuiltDecks);
+        }
     }
 
-    function createDeckGrid() {
-        for(let deckName in allDecks) {
-            let deckPreview = document.createElement('div');
-            deckPreview.className = 'deck-preview';
-            deckPreview.innerHTML = `
-                <div class="deck-title">${deckName} - ${allDecks[deckName].length}</div>
-                <div class="deck-content">${getPreviewContent(allDecks[deckName])}</div>
-            `;
-            deckPreview.addEventListener('click', () => startQuiz(deckName));
-            deckGrid.appendChild(deckPreview);
-        }
+    function createDeckPreview(deckName, deck, isPrebuilt) {
+        let deckPreview = document.createElement('div');
+        deckPreview.className = 'deck-preview' + (isPrebuilt ? ' prebuilt-deck' : '');
+        deckPreview.innerHTML = `
+            <div class="deck-title">${deckName} - ${deck.length}</div>
+            <div class="deck-content">${getPreviewContent(deck)}</div>
+        `;
+        deckPreview.addEventListener('click', () => startQuiz(deckName));
+        deckGrid.appendChild(deckPreview);
     }
 
     function getPreviewContent(deck) {
@@ -41,14 +60,32 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function startQuiz(deckName) {
-        currentDeck = [...allDecks[deckName]];
-        correct = 0, wrong = 0;
-        deckGrid.style.display = 'none';
-        quizContainer.style.display = 'block';
-        pageTitle.style.display = 'none';
-        btnBack.href = '/quiz';
+        fetch('prebuilt_decks.json')
+            .then(response => response.json())
+            .then(prebuiltDecks => {
+                currentDeck = deckName in prebuiltDecks ? [...prebuiltDecks[deckName]] : [...allDecks[deckName]];
+                correct = 0;
+                wrong = 0;
+                deckGrid.style.display = 'none';
+                quizContainer.style.display = 'block';
+                pageTitle.style.display = 'none';
+                btnBack.href = '/quiz';
 
-        quizNext(deckName);
+                quizNext(deckName);
+            })
+            .catch(error => {
+                console.error('Error loading prebuilt decks:', error);
+                // If there's an error, assume it's a user deck
+                currentDeck = [...allDecks[deckName]];
+                correct = 0;
+                wrong = 0;
+                deckGrid.style.display = 'none';
+                quizContainer.style.display = 'block';
+                pageTitle.style.display = 'none';
+                btnBack.href = '/quiz';
+
+                quizNext(deckName);
+            });
     }
 
     let visited = [];
@@ -104,7 +141,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    createDeckGrid();
     quizContainer.className = 'quiz-styled';
     divBtn.className = 'btns-styled';
     buttons.className = 'btn-added';
