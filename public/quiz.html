@@ -3,19 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chose a deck</title>
+    <title>Quiz</title>
     <link rel="stylesheet" href="./styles/quiz_styles.css">
     <link rel="icon" type="image/svg+xml" href="./images/flashCardLogo.png">
 </head>
 <body>
-    <script defer src="./scripts/quiz.js"></script>
-    <a id="btn-back-a" href="/"><button id="btn-back"><span class="back-text">Go Back</span><span class="back-icon">&lt;</span></button></a>
+    <a href="/" id="btn-back-a">
+        <button id="btn-back">
+            <span class="back-text">Go Back</span>
+            <span class="back-icon"><</span>
+        </button>
+    </a>
     <div class="container">
         <h1 id="pageTitle">Choose a Deck</h1>
         <div id="deckGrid" class="deck-grid"></div>
+        <div id="quizSetup" style="display: none;">
+            <h2>Quiz Setup</h2>
+            <label for="questionCount">Number of Questions:</label>
+            <input type="number" id="questionCount" min="1" value="10">
+            <button id="startQuiz">Start Quiz</button>
+        </div>
         <div id="quizContainer" style="display: none;"></div>
         <div id="result"></div>
         <div id="progress"></div>
     </div>
+    <script src="./scripts/quiz.js"></script>
 </body>
 </html>

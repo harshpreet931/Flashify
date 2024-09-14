@@ -1,23 +1,25 @@
 document.addEventListener('DOMContentLoaded', function() {
     let deckGrid = document.getElementById('deckGrid');
+    let quizSetup = document.getElementById('quizSetup');
     let quizContainer = document.getElementById('quizContainer');
     let result = document.getElementById('result');
     let allDecks = JSON.parse(localStorage.getItem('allDecks')) || {};
     let currentDeck = [];
     let pageTitle = document.getElementById('pageTitle');
     let btnBack = document.getElementById('btn-back-a');
+    let questionCountInput = document.getElementById('questionCount');
+    let startQuizButton = document.getElementById('startQuiz');
     
-    // ----------------- for Styling and Progress -----------------
     let progress = document.getElementById('progress');
     let divBtn = document.getElementsByClassName('btns-styled');
     let buttons = document.getElementsByClassName('btn-added');
     let correct = 0, wrong = 0;
+    let questionCount = 10; // Default value
+    let currentQuestionIndex = 0;
 
-    // Load prebuilt decks from JSON file
     fetch('/prebuilt_decks.json')
         .then(response => response.json())
         .then(prebuiltDecks => {
-            // Combine prebuilt and user decks
             let combinedDecks = {...prebuiltDecks, ...allDecks};
 
             if(Object.keys(combinedDecks).length === 0) {
@@ -29,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error('Error loading prebuilt decks:', error);
-            // If there's an error, just use user decks
             createDeckGrid(allDecks, {});
         });
 
@@ -46,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="deck-title">${deckName} - ${deck.length}</div>
             <div class="deck-content">${getPreviewContent(deck)}</div>
         `;
-        deckPreview.addEventListener('click', () => startQuiz(deckName));
+        deckPreview.addEventListener('click', () => showQuizSetup(deckName));
         deckGrid.appendChild(deckPreview);
     }
 
@@ -59,42 +60,73 @@ document.addEventListener('DOMContentLoaded', function() {
         return previewContent.length > 75 ? previewContent.substring(0, 75) + '...' : previewContent;
     }
 
+    function showQuizSetup(deckName) {
+        deckGrid.style.display = 'none';
+        quizSetup.style.display = 'block';
+        pageTitle.style.display = 'none';
+        startQuizButton.onclick = () => startQuiz(deckName);
+    }
+
     function startQuiz(deckName) {
-        fetch('prebuilt_decks.json')
+        questionCount = parseInt(questionCountInput.value);
+
+        if (isNaN(questionCount) || questionCount < 1) {
+            alert("Please enter a valid number of questions.");
+            return;
+        }
+        
+        // Fetch the deck from prebuilt decks or allDecks
+        fetch('/prebuilt_decks.json')
             .then(response => response.json())
             .then(prebuiltDecks => {
-                currentDeck = deckName in prebuiltDecks ? [...prebuiltDecks[deckName]] : [...allDecks[deckName]];
+                let fullDeck = deckName in prebuiltDecks ? [...prebuiltDecks[deckName]] : [...allDecks[deckName]];
+                
+                // Check if the number of questions exceeds the deck length
+                if (questionCount > fullDeck.length) {
+                    alert(`The number of questions exceeds the deck size. There are only ${fullDeck.length} questions available.`);
+                    return;
+                }
+    
+                // Proceed with the quiz if the question count is valid
+                currentDeck = fullDeck.sort(() => 0.5 - Math.random()).slice(0, questionCount);
                 correct = 0;
                 wrong = 0;
-                deckGrid.style.display = 'none';
+                currentQuestionIndex = 0;
+                quizSetup.style.display = 'none';
                 quizContainer.style.display = 'block';
-                pageTitle.style.display = 'none';
                 btnBack.href = '/quiz';
-
+    
                 quizNext(deckName);
             })
             .catch(error => {
                 console.error('Error loading prebuilt decks:', error);
-                // If there's an error, assume it's a user deck
-                currentDeck = [...allDecks[deckName]];
+                let fullDeck = [...allDecks[deckName]];
+    
+                // Check if the number of questions exceeds the deck length
+                if (questionCount > fullDeck.length) {
+                    alert(`The number of questions exceeds the deck size. There are only ${fullDeck.length} questions available.`);
+                    return;
+                }
+    
+                // Proceed with the quiz if the question count is valid
+                currentDeck = fullDeck.sort(() => 0.5 - Math.random()).slice(0, questionCount);
                 correct = 0;
                 wrong = 0;
-                deckGrid.style.display = 'none';
+                currentQuestionIndex = 0;
+                quizSetup.style.display = 'none';
                 quizContainer.style.display = 'block';
-                pageTitle.style.display = 'none';
                 btnBack.href = '/quiz';
-
+    
                 quizNext(deckName);
             });
     }
-
-    let visited = [];
+    
 
     function quizNext(deckName) {
-        if(visited.length === currentDeck.length) {
+        if(currentQuestionIndex === questionCount) {
             quizContainer.innerHTML = '<h2>You have completed the quiz!</h2>';
             let quizResult = {
-                total: currentDeck.length,
+                total: questionCount,
                 correct: correct,
                 wrong: wrong,
                 date: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString(),
@@ -106,14 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        let randomIndex;
-        do {
-            randomIndex = Math.floor(Math.random() * currentDeck.length);
-        } while(visited.includes(randomIndex));
-
-        let card = currentDeck[randomIndex];
-        visited.push(randomIndex);
-
+        let card = currentDeck[currentQuestionIndex];
         let [term, options, answer] = card.split('|');
         let optionsArray = options.split(',');
 
@@ -131,8 +156,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     wrong++;
                 }
 
-                progress.innerHTML = `Correct: ${correct} | Wrong: ${wrong}`;
+                progress.innerHTML = `Question ${currentQuestionIndex + 1}/${questionCount} | Correct: ${correct} | Wrong: ${wrong}`;
 
+                currentQuestionIndex++;
                 setTimeout(() => {
                     result.innerHTML = '';
                     quizNext(deckName);
