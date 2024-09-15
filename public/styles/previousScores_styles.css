@@ -38,6 +38,14 @@ body {
   animation: fadeIn 1s ease-out;
 }
 
+button:hover {
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }

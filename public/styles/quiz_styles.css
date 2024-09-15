@@ -12,6 +12,14 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
+button:hover {
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
 .container {
   display: flex;
   justify-content: center;
