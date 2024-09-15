@@ -95,14 +95,14 @@ function editDeck(deckName) {
     
     let cardList = "<ul>";
     allDecks[deckName].forEach((card, index) => {
-        cardList += `<li>${card} <button onclick="removeCardFromDeck('${deckName}', ${index})">Remove</button></li>`;
+        cardList += `<li>${card} <button onclick="removeCardFromDeck('${deckName}', ${index})" class="remove-button">Remove</button></li>`;
     });
     cardList += "</ul>";
 
     cardList += `
         <div>
             <input type="text" id="newCardInput" placeholder="Enter New Card">
-            <button onclick="addCardToDeck('${deckName}')">Add Card</button>
+            <button onclick="addCardToDeck('${deckName}')" class="add-button">Add Card</button>
          </div>
     `
     
