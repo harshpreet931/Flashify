@@ -1,12 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
     let allResults = JSON.parse(localStorage.getItem('allResults')) || {};
     let scores = document.querySelector('.scores');
+    let clearBtn = document.getElementById('btn-clear');
 
     function displayScores() {
         if (Object.entries(allResults).length === 0) {
             scores.innerHTML = '<p class="no-scores">No previous scores to display.</p>';
+            clearBtn.style.display = 'none';
         }
         else {
+            clearBtn.style.display = 'block';
             let table = `
             <div class="table-container">
                 <table class="scores-table">
@@ -51,5 +54,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    function clearScores() {
+        allResults = {};
+        localStorage.removeItem('allResults');
+        displayScores();
+    }
+
+    clearBtn.addEventListener('click', clearScores);
     displayScores();
 });
