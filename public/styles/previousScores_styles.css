@@ -175,10 +175,64 @@ body {
   display: none;
 }
 
+#btn-clear {
+  position: fixed;
+  top: 0;
+  right: 0;
+  background: linear-gradient(45deg, #FF416C, #FF4B2B);
+  color: white;
+  border: none;
+  font-size: 16px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s ease;
+  z-index: 1000;
+  border-radius: 0 0 0 5px;
+  overflow: hidden;
+}
+
+#btn-clear::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 80%);
+  transform: scale(0);
+  transition: transform 0.6s ease-out;
+}
+
+#btn-clear:hover::before {
+  transform: scale(1);
+}
+
+#btn-clear:hover {
+  box-shadow: 0 0 20px rgba(255, 75, 43, 0.5);
+}
+ 
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(5px); }
+  50% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+  100% { transform: translateX(0); }
+}
+
+#btn-clear:active {
+  animation: shake 0.3s ease-in-out;
+}
+
 @media (max-width: 768px) {
   #btn-back {
     padding: 10px;
     font-size: 24px;
+  }
+
+  #btn-clear {
+    font-size: 14px;
+    padding: 8px 16px;
   }
 
   .back-text {
