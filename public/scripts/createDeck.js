@@ -5,6 +5,12 @@ let currentEditingDeck = '';
 document.getElementById('deckForm').addEventListener('submit', function(e) {
     e.preventDefault();
     let deckInput = document.getElementById('deckInput').value;
+    let deckName = document.getElementById('deckName').value;
+
+    if(allDecks.hasOwnProperty(deckName)) {
+        alert('A deck with that name already exists. Please choose a different name.');
+        return;
+    }
     
     if (deckInput.trim() !== '') {
         currentDeck.push(deckInput);
