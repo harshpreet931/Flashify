@@ -24,12 +24,17 @@ function clearForm() {
 }
 
 function updateDeckShow() {
-    let deckList = "<ul>";
-    currentDeck.forEach(function(card, index) {
-        deckList += `<li>${card} <button onclick="removeCard(${index})">Remove</button></li>`;
-    });
-    deckList += "</ul>";
-    document.getElementById('deckShow').innerHTML = deckList;
+    let deckShow = document.getElementById('deckShow');
+    if (currentDeck.length === 0) {
+        deckShow.innerHTML = '<p class="empty-deck-message">Your current deck is empty.</p>';
+    } else {
+        let deckList = "<ul>";
+        currentDeck.forEach(function(card, index) {
+            deckList += `<li>${card} <button onclick="removeCard(${index})">Remove</button></li>`;
+        });
+        deckList += "</ul>";
+        deckShow.innerHTML = deckList;
+    }
 }
 
 function removeCard(index) {
@@ -54,20 +59,24 @@ document.getElementById('saveDeck').addEventListener('click', function() {
 });
 
 function updateAllDecks() {
-    let decksGrid = "";
-    for(let deckName in allDecks) {
-        decksGrid += `
-            <div class="deck-item">
-                <h3>${deckName}</h3>
-                <p>${allDecks[deckName].length} cards</p>
-                <button onclick="editDeck('${deckName}')">Edit</button>
-                <button onclick="deleteDeck('${deckName}')">Delete</button>
-            </div>
-        `;
+    let decksGrid = document.getElementById('allDecks');
+    if (Object.keys(allDecks).length === 0) {
+        decksGrid.innerHTML = '<p class="empty-deck-message">No decks available.</p>';
+    } else {
+        let decksHtml = "";
+        for(let deckName in allDecks) {
+            decksHtml += `
+                <div class="deck-item">
+                    <h3>${deckName}</h3>
+                    <p>${allDecks[deckName].length} cards</p>
+                    <button onclick="editDeck('${deckName}')">Edit</button>
+                    <button onclick="deleteDeck('${deckName}')">Delete</button>
+                </div>
+            `;
+        }
+        decksGrid.innerHTML = decksHtml;
     }
-    document.getElementById('allDecks').innerHTML = decksGrid;
 }
-
 function deleteDeck(deckName) {
     if (confirm(`Are you sure you want to delete the deck "${deckName}"?`)) {
         delete allDecks[deckName];
@@ -134,4 +143,5 @@ window.onclick = function(event) {
     }
 }
 
+updateDeckShow();
 updateAllDecks();
