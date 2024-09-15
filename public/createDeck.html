@@ -13,6 +13,10 @@
     <div class="container">
         <h1 id="title">Create A Deck</h1>
 
+        <div class="format-explanation">
+            <p>Format: Question | Option1, Option2, Option3, Option4 | Ans</p>
+        </div>
+
         <form id="deckForm">
             <input type="text" id="deckName" placeholder="Enter Deck Name" required>
             <input type="text" id="deckInput" placeholder="Enter your Card">
@@ -21,14 +25,19 @@
 
         <button id="saveDeck">Save Deck</button>
 
-        <h2>Your current deck</h2>
-        <div id="deckShow"></div>
+        <div class="deck-section">
+            <h2>Your current deck</h2>
+            <div id="deckShow">
+                <p class="empty-deck-message">Your current deck is empty.</p>
+            </div>
+        </div>
 
-        <h2>All Decks</h2>
-        <div id="allDecks" class="deck-grid"></div>
+        <div class="deck-section">
+            <h2>All Decks</h2>
+            <div id="allDecks" class="deck-grid"></div>    
+        </div>
     </div>
 
-    <!-- Modal for editing deck -->
     <div id="editModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
