@@ -121,11 +121,6 @@ body {
   font-weight: 500;
 }
 
-.btn-added:hover {
-  background: #365970;
-  transform: scale(1.05);
-}
-
 .progress-styled {
   padding-top: 50px;
   color: antiquewhite;
