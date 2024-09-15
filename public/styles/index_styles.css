@@ -1,69 +1,122 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 body {
-  background: #0B1215;
+  background: linear-gradient(135deg, #0B1215 0%, #1E2A32 100%);
   font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #ffffff;
 }
 
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 95vh;
+  height: 100vh;
   width: 100%;
   flex-direction: column;
 }
 
-.a-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  max-width: 1000px;
-  width: 100%;
-  justify-content: center;
-  margin-top: 30px;
-}
-  
 .shine {
   color: #ffffff;
   background: linear-gradient(to right, #4d4d4d 0%, white 10%, #4d4d4d 20%);
   background-position: 0;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: shine 5s infinite linear;
-  font-weight: 600;
-  font-size: 40px;
-  margin-bottom: 20px;
+  animation: shine 5s infinite linear, fadeInDown 1.5s ease-out;
+  font-weight: 700;
+  font-size: 60px;
+  margin-bottom: 10px;
+  letter-spacing: 2px;
 }
-  
+
 @keyframes shine {
-  0% {
-    background-position: 0;
+  0% { background-position: 0; }
+  100% { background-position: 465px; }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
   }
-  50% {
-    background-position: 232px;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  100% {
-    background-position: 465px;
-  }
+}
+
+.tagline {
+  font-size: 18px;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #22c1c3;
+  font-weight: 300;
+  letter-spacing: 1px;
+  animation: fadeIn 1.5s ease-out 0.5s both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.a-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  max-width: 800px;
+  width: 100%;
+  justify-content: center;
 }
 
 .a-link {
   text-decoration: none;
-  color: #ffffff;
-  font-size: 20px;
-  font-weight: 700;
-  background: rgb(34,193,195);
-  background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
-  background-clip: text;
-  color: transparent;
+  font-size: 18px;
+  font-weight: 600;
+  background: linear-gradient(45deg, #22c1c3, #fdbb2d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   text-align: center;
-  padding: 10px;
+  padding: 15px 20px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 1s ease-out 1s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.a-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
   transition: 0.5s;
 }
 
+.a-link:hover::before {
+  left: 100%;
+}
+
 .a-link:hover {
-  transform: scale(1.1);
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  border-color: #22c1c3;
 }
 
 footer {
@@ -71,41 +124,51 @@ footer {
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: #1E2A32;
+  background: linear-gradient(90deg, #1E2A32, #0B1215);
   color: white;
   text-align: center;
-  padding: 10px;
+  padding: 15px;
+  font-size: 14px;
+  animation: fadeInUp 1s ease-out 1.5s both;
 }
 
 footer a {
-  color: white;
+  color: #22c1c3;
   text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: #fdbb2d;
+}
+
+.heart {
+  display: inline-block;
+  animation: heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
 }
 
 @media (max-width: 768px) {
-  .btn-shine {
-    font-size: 20px;
+  .shine {
+    font-size: 40px;
+  }
+  .tagline {
+    font-size: 16px;
   }
   .a-grid {
     grid-template-columns: 1fr;
     max-width: 300px;
   }
   .a-link {
-    font-size: 14px;
+    font-size: 16px;
   }
   footer {
     font-size: 12px;
-  }
-
-  @keyframes shine {
-    0% {
-      background-position: 0;
-    }
-    50% {
-      background-position: 150px;
-    }
-    100% {
-      background-position: 315px;
-    }
   }
 }
