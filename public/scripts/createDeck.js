@@ -83,6 +83,13 @@ function editDeck(deckName) {
         cardList += `<li>${card} <button onclick="removeCardFromDeck('${deckName}', ${index})">Remove</button></li>`;
     });
     cardList += "</ul>";
+
+    cardList += `
+        <div>
+            <input type="text" id="newCardInput" placeholder="Enter New Card">
+            <button onclick="addCardToDeck('${deckName}')">Add Card</button>
+         </div>
+    `
     
     modalDeckContent.innerHTML = cardList;
     modal.style.display = "block";
@@ -93,6 +100,19 @@ function removeCardFromDeck(deckName, index) {
     localStorage.setItem('allDecks', JSON.stringify(allDecks));
     editDeck(deckName);  // Refresh the modal content
     updateAllDecks();  // Refresh the deck grid
+}
+
+function addCardToDeck(deckName) {
+    let newCardInput = document.getElementById('newCardInput');
+    let newCard = newCardInput.value.trim();
+
+    if(newCard !== '') {
+        allDecks[deckName].push(newCard);
+        localStorage.setItem('allDecks', JSON.stringify(allDecks));
+        newCardInput.value = '';
+        editDeck(deckName);  // Refresh the modal content
+        updateAllDecks();  // Refresh the deck grid
+    }
 }
 
 // Close modal when clicking on <span> (x)
