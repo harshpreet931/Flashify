@@ -37,7 +37,6 @@ body {
     border-radius: 15px;
     margin-bottom: 30px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
 }
 
 #deckForm {
