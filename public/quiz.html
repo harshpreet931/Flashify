@@ -23,7 +23,15 @@
             <input type="number" id="questionCount" min="1" value="10">
             <button id="startQuiz">Start Quiz</button>
         </div>
-        <div id="quizContainer" style="display: none;"></div>
+        
+        <div id="quizContainer" style="display: none;">
+            <div id="progressBarContainer">
+                <div id="progressBar"></div>
+            </div>
+            <div id="timerContainer">Time: <span id="timer">00:00</span></div>
+            <div class="questionContent"></div>
+        </div>
+
         <div id="result"></div>
         <div id="progress"></div>
     </div>

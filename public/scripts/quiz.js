@@ -17,6 +17,13 @@ document.addEventListener('DOMContentLoaded', function() {
     let questionCount = 10; // Default value
     let currentQuestionIndex = 0;
 
+    let timerDisplay = document.getElementById('timer');
+    let progressBar = document.getElementById('progressBar');
+    let timerContainer = document.getElementById('timerContainer');
+    let progressBarContainer = document.getElementById('progressBarContainer');
+    let stopWatchInterval;
+    let startTime;
+
     fetch('/prebuilt_decks.json')
         .then(response => response.json())
         .then(prebuiltDecks => {
@@ -95,7 +102,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 quizSetup.style.display = 'none';
                 quizContainer.style.display = 'block';
                 btnBack.href = '/quiz';
+
+                progressBarContainer.style.display = 'block';
+                timerContainer.style.display = 'block';
     
+                startStopWatch();
+                updateProgressBar();
                 quizNext(deckName);
             })
             .catch(error => {
@@ -116,15 +128,39 @@ document.addEventListener('DOMContentLoaded', function() {
                 quizSetup.style.display = 'none';
                 quizContainer.style.display = 'block';
                 btnBack.href = '/quiz';
+
+                progressBarContainer.style.display = 'block';
+                timerContainer.style.display = 'block';
     
+                startStopWatch();
+                updateProgressBar();
                 quizNext(deckName);
             });
+    }
+
+    function startStopWatch() {
+        startTime = Date.now();
+        stopWatchInterval = setInterval(updateStopWatch, 1000);
+    }
+
+    function updateStopWatch() {
+        let elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+        let minutes = Math.floor(elapsedTime / 60);
+        let seconds = elapsedTime % 60;
+        timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    function updateProgressBar() {
+        let progress = ((currentQuestionIndex) / questionCount) * 100;
+        progressBar.style.width = `${progress}%`;
     }
     
 
     function quizNext(deckName) {
         if(currentQuestionIndex === questionCount) {
-            quizContainer.innerHTML = '<h2>You have completed the quiz!</h2>';
+            clearInterval(stopWatchInterval);
+            let finalTime = timerDisplay.textContent;
+            quizContainer.innerHTML = `<h2>You have completed the quiz!</h2> <p>Time Taken: ${finalTime}</p>`;
             let quizResult = {
                 total: questionCount,
                 correct: correct,
@@ -146,6 +182,8 @@ document.addEventListener('DOMContentLoaded', function() {
             <h1>${term}</h1>
             <div class="btns-styled">${optionsArray.map(option => `<button class="btn-added">${option.trim()}</button>`).join('')}</div>
         `;
+
+        updateProgressBar();
 
         let buttons = document.querySelectorAll('.btn-added');
         buttons.forEach(button => {
