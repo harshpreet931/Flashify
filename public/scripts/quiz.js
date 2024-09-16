@@ -158,6 +158,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function quizNext(deckName) {
         if(currentQuestionIndex === questionCount) {
+            updateProgressBar();
+            timerContainer.style.display = 'none';
             clearInterval(stopWatchInterval);
             let finalTime = timerDisplay.textContent;
             quizContainer.innerHTML = `<h2>You have completed the quiz!</h2> <p>Time Taken: ${finalTime}</p>`;
