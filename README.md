@@ -45,6 +45,7 @@ Flashify is a fully responsive web-based application designed to enhance your le
 **Note**: If you are facing any issues in npm start.. there may be something running on your portnumber :3000, in order to fix that change the port number in server.js
 
 ## Usage
+![Explainer](./public/images/explainer.png)
 
 ### Creating a Deck
 
