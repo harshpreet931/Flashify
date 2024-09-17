@@ -217,7 +217,7 @@ button:active {
   height: 100%;
   width: 0;
   background: #4CAF50;
-  transition: width 0.3s ease;
+  transition: width 0.7s ease;
 }
 
 #timerContainer {
