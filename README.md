@@ -2,7 +2,7 @@
 
 ## Boost Your Learning with Interactive Flashcards!
 
-Flashify is a web-based application designed to enhance your learning experience through interactive flashcards. Whether you're studying for exams, learning a new language, or simply expanding your knowledge, Flashify provides an engaging platform to create, manage, and quiz yourself with customized flashcard decks.
+Flashify is a fully responsive web-based application designed to enhance your learning experience through interactive flashcards. Whether you're studying for exams, learning a new language, or simply expanding your knowledge, Flashify provides an engaging platform to create, manage, and quiz yourself with customized flashcard decks.
 
 ## Features
 
