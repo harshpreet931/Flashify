@@ -86,16 +86,6 @@ Flashify is a web-based application designed to enhance your learning experience
 ## Hosting with Vercel
 Flashify is hosted on Vercel, providing fast and reliable access to the application. You can access the live version at https://flashify-quiz.vercel.app.
 
-## Contributing
-
-We welcome contributions to Flashify! Please follow these steps to contribute:
-
-1. Fork the repository
-2. Create a new branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
 ## Contact
 
 Harshpreet Singh - [LinkedIn](https://www.linkedin.com/in/harshpreet931/)
