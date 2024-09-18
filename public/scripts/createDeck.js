@@ -12,12 +12,29 @@ document.getElementById('deckForm').addEventListener('submit', function(e) {
         return;
     }
     
-    if (deckInput.trim() !== '') {
+    if (validateInput(deckInput)) {
         currentDeck.push(deckInput);
         updateDeckShow();
         clearForm();
     }
+    else {
+        alert('Invalid Format! Please use the given format.');
+    }
 });
+
+function validateInput(input) {
+    let parts = input.split('|');
+    if(parts !== 3) return false;
+
+    parts = parts.map(part => part.trim());
+
+    if(parts[0].length === 0 || parts[1].length === 0 || parts[2].length === 0) return false;
+
+    let options = parts[1].split(',');
+    if(options.length < 2 || options.length > 4) return false;
+
+    return options.every(option => option.trim().length > 0);
+}
 
 function clearForm() {
     document.getElementById('deckInput').value = '';
@@ -121,12 +138,15 @@ function addCardToDeck(deckName) {
     let newCardInput = document.getElementById('newCardInput');
     let newCard = newCardInput.value.trim();
 
-    if(newCard !== '') {
+    if(validateInput(newCard)) {
         allDecks[deckName].push(newCard);
         localStorage.setItem('allDecks', JSON.stringify(allDecks));
         newCardInput.value = '';
         editDeck(deckName);  // Refresh the modal content
         updateAllDecks();  // Refresh the deck grid
+    }
+    else {
+        alert('Invalid Format! Please use the given format.');
     }
 }
 
