@@ -154,11 +154,24 @@ document.addEventListener('DOMContentLoaded', function() {
         let progress = ((currentQuestionIndex) / questionCount) * 100;
         progressBar.style.width = `${progress}%`;
     }
+
+    function showPerfectScore() {
+        let perfectScoreElement = document.getElementById('perfect-score');
+        perfectScoreElement.classList.add('show');
+        setTimeout(() => {
+            perfectScoreElement.classList.remove('show');
+        }, 5000);
+    }
+
+    function checkForPerfectScore() {
+        if(correct == questionCount) showPerfectScore();
+    }
     
 
     function quizNext(deckName) {
         if(currentQuestionIndex === questionCount) {
             updateProgressBar();
+            checkForPerfectScore();
             timerContainer.style.display = 'none';
             clearInterval(stopWatchInterval);
             let finalTime = timerDisplay.textContent;
