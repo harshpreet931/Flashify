@@ -76,7 +76,8 @@ function updateDeckShow()
     else 
     {
         let deckList = "<ul>";
-        currentDeck.forEach(function(card, index) {
+        currentDeck.forEach(function(card, index) 
+        {
             deckList += `<li>${card} <button onclick="removeCard(${index})">Remove</button></li>`;
         });
         deckList += "</ul>";
@@ -100,7 +101,8 @@ document.getElementById('saveDeck').addEventListener('click', function()
     let deckName = document.getElementById('deckName').value;
     
     // Check if the deck name is not empty and the current deck is not empty
-    if(deckName && currentDeck.length > 0) {
+    if(deckName && currentDeck.length > 0) 
+    {
         // Save the deck to the allDecks object
         allDecks[deckName] = currentDeck.slice();
 
