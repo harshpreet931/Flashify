@@ -1,39 +1,56 @@
-let currentDeck = [];
-let allDecks = JSON.parse(localStorage.getItem('allDecks')) || {};
-let currentEditingDeck = '';
+// Initialize variables
+let currentDeck = []; // Stores the current deck being created
+let allDecks = JSON.parse(localStorage.getItem('allDecks')) || {}; // Retrieve all decks from local storage
+let currentEditingDeck = ''; // Stores the name of the deck currently being edited
 
-document.getElementById('deckForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    let deckInput = document.getElementById('deckInput').value;
+
+// Add event listener for form submission
+document.getElementById('deckForm').addEventListener('submit', function(e) 
+{
+    e.preventDefault(); // Prevent the default form submission
+
+    // Get the input values
+    let deckInput = document.getElementById('deckInput').value; 
     let deckName = document.getElementById('deckName').value;
 
-    if(allDecks.hasOwnProperty(deckName)) {
+    // Check if a deck with the same name already exists
+    if(allDecks.hasOwnProperty(deckName)) 
+    {
         alert('A deck with that name already exists. Please choose a different name.');
         return;
     }
     
-    if (validateInput(deckInput)) {
+    // Validate the input
+    if (validateInput(deckInput)) 
+    {
         currentDeck.push(deckInput);
-        updateDeckShow();
-        clearForm();
+        updateDeckShow(); // Update the deck display
+        clearForm(); // Clear the form
     }
-    else {
+    else 
+    {
         alert('Invalid Format! Please use the given format.');
     }
 });
 
-function validateInput(input) {
+// Function to validate the input
+function validateInput(input) 
+{
     let parts = input.trim().split('|');
-    if(parts.length !== 3) return false;
-
     let options = parts[1].split(',');
-    if(options.length < 2) return false;
-
-    for(let i = 0; i < options.length; i++) options[i] = options[i].trim();
-
     let correctAnswer = parts[2].trim();
 
-    if(options.indexOf(correctAnswer) === -1) {
+    // Input must have 3 parts
+    if(parts.length !== 3) return false;
+    // Options must have at least 2 elements
+    if(options.length < 2) return false;
+
+    // Trim the options
+    for(let i = 0; i < options.length; i++) options[i] = options[i].trim();
+
+    // Correct answer must be one of the options
+    if(options.indexOf(correctAnswer) === -1) 
+    {
         alert('Correct answer must be one of the options.');
         return false;
     }
@@ -41,15 +58,23 @@ function validateInput(input) {
     return true;
 }
 
-function clearForm() {
+// Function to clear the form 
+function clearForm() 
+{
     document.getElementById('deckInput').value = '';
 }
 
-function updateDeckShow() {
+// Function to update the display of the current deck
+function updateDeckShow() 
+{
     let deckShow = document.getElementById('deckShow');
-    if (currentDeck.length === 0) {
+
+    if (currentDeck.length === 0) 
+    {
         deckShow.innerHTML = '<p class="empty-deck-message">Your current deck is empty.</p>';
-    } else {
+    } 
+    else 
+    {
         let deckList = "<ul>";
         currentDeck.forEach(function(card, index) {
             deckList += `<li>${card} <button onclick="removeCard(${index})">Remove</button></li>`;
@@ -59,34 +84,58 @@ function updateDeckShow() {
     }
 }
 
-function removeCard(index) {
+// Function to remove a card from the current deck
+function removeCard(index) 
+{
+    // Remove One element from the currentDeck array at the given index
     currentDeck.splice(index, 1);
+
+    // Update the deck display
     updateDeckShow();
 }
 
-document.getElementById('saveDeck').addEventListener('click', function() {
+// Add event listener for saving the deck
+document.getElementById('saveDeck').addEventListener('click', function() 
+{
     let deckName = document.getElementById('deckName').value;
+    
+    // Check if the deck name is not empty and the current deck is not empty
     if(deckName && currentDeck.length > 0) {
+        // Save the deck to the allDecks object
         allDecks[deckName] = currentDeck.slice();
+
+        // Save the allDecks object to local storage
         localStorage.setItem('allDecks', JSON.stringify(allDecks));
         alert('Deck saved!');
+        
+        // Clear the current deck and the form
         currentDeck = [];
         document.getElementById('deckName').value = '';
+        
+        // Update the deck display and the deck grid
         updateDeckShow();
         updateAllDecks();
     }
-    else {
+    else 
+    {
         alert('Please enter a deck name and at least one card!');
     }
 });
 
-function updateAllDecks() {
+// Function to update the deck grid
+function updateAllDecks() 
+{
     let decksGrid = document.getElementById('allDecks');
-    if (Object.keys(allDecks).length === 0) {
+    
+    if (Object.keys(allDecks).length === 0) 
+    {
         decksGrid.innerHTML = '<p class="empty-deck-message">No decks available.</p>';
-    } else {
+    } 
+    else 
+    {
         let decksHtml = "";
-        for(let deckName in allDecks) {
+        for(let deckName in allDecks) 
+        {
             decksHtml += `
                 <div class="deck-item">
                     <h3>${deckName}</h3>
@@ -99,15 +148,21 @@ function updateAllDecks() {
         decksGrid.innerHTML = decksHtml;
     }
 }
-function deleteDeck(deckName) {
-    if (confirm(`Are you sure you want to delete the deck "${deckName}"?`)) {
+
+// Function to delete a deck
+function deleteDeck(deckName) 
+{
+    if(confirm(`Are you sure you want to delete the deck "${deckName}"?`)) 
+    {
         delete allDecks[deckName];
         localStorage.setItem('allDecks', JSON.stringify(allDecks));
         updateAllDecks();
     }
 }
 
-function editDeck(deckName) {
+// Function to edit a deck
+function editDeck(deckName) 
+{
     currentEditingDeck = deckName;
     let modal = document.getElementById('editModal');
     let modalDeckName = document.getElementById('modalDeckName');
@@ -116,7 +171,8 @@ function editDeck(deckName) {
     modalDeckName.textContent = deckName;
     
     let cardList = "<ul>";
-    allDecks[deckName].forEach((card, index) => {
+    allDecks[deckName].forEach((card, index) => 
+    {
         cardList += `<li>${card} <button onclick="removeCardFromDeck('${deckName}', ${index})" class="remove-button">Remove</button></li>`;
     });
     cardList += "</ul>";
@@ -132,38 +188,47 @@ function editDeck(deckName) {
     modal.style.display = "block";
 }
 
-function removeCardFromDeck(deckName, index) {
+// Function to add a card to a deck
+function removeCardFromDeck(deckName, index) 
+{
     allDecks[deckName].splice(index, 1);
     localStorage.setItem('allDecks', JSON.stringify(allDecks));
     editDeck(deckName);  // Refresh the modal content
     updateAllDecks();  // Refresh the deck grid
 }
 
-function addCardToDeck(deckName) {
+// Function to add a card to a deck
+function addCardToDeck(deckName) 
+{
     let newCardInput = document.getElementById('newCardInput');
     let newCard = newCardInput.value.trim();
 
-    if(validateInput(newCard)) {
+    if(validateInput(newCard)) 
+    {
         allDecks[deckName].push(newCard);
         localStorage.setItem('allDecks', JSON.stringify(allDecks));
         newCardInput.value = '';
         editDeck(deckName);  // Refresh the modal content
         updateAllDecks();  // Refresh the deck grid
     }
-    else {
+    else 
+    {
         alert('Invalid Format! Please use the given format.');
     }
 }
 
 // Close modal when clicking on <span> (x)
-document.querySelector('.close').onclick = function() {
+document.querySelector('.close').onclick = function() 
+{
     document.getElementById('editModal').style.display = "none";
 }
 
 // Close modal when clicking outside of it
-window.onclick = function(event) {
+window.onclick = function(event) 
+{
     let modal = document.getElementById('editModal');
-    if (event.target == modal) {
+    if (event.target == modal) 
+    {
         modal.style.display = "none";
     }
 }
