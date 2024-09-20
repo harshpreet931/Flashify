@@ -27,28 +27,34 @@ let startTime;
 // Fetch prebuilt decks and combine with user decks
 fetch('/prebuilt_decks.json')
     .then(response => response.json())
-    .then(prebuiltDecks => {
+    .then(prebuiltDecks => 
+    {
         let combinedDecks = {...prebuiltDecks, ...allDecks};
 
-        if(Object.keys(combinedDecks).length === 0) {
+        if(Object.keys(combinedDecks).length === 0) 
+        {
             quizContainer.innerHTML = 'No decks to quiz, Add a deck to start.';
             return;
         }
 
         createDeckGrid(combinedDecks, prebuiltDecks);
     })
-    .catch(error => {
+    .catch(error => 
+    {
         console.error('Error loading prebuilt decks:', error);
         createDeckGrid(allDecks, {});
     });
 
-function createDeckGrid(combinedDecks, prebuiltDecks) {
-    for(let deckName in combinedDecks) {
+function createDeckGrid(combinedDecks, prebuiltDecks) 
+{
+    for(let deckName in combinedDecks) 
+    {
         createDeckPreview(deckName, combinedDecks[deckName], deckName in prebuiltDecks);
     }
 }
 
-function createDeckPreview(deckName, deck, isPrebuilt) {
+function createDeckPreview(deckName, deck, isPrebuilt) 
+{
     let deckPreview = document.createElement('div');
     deckPreview.className = 'deck-preview' + (isPrebuilt ? ' prebuilt-deck' : '');
     deckPreview.innerHTML = `
@@ -59,26 +65,31 @@ function createDeckPreview(deckName, deck, isPrebuilt) {
     deckGrid.appendChild(deckPreview);
 }
 
-function getPreviewContent(deck) {
+function getPreviewContent(deck) 
+{
     let previewContent = '';
-    deck.forEach(card => {
+    deck.forEach(card => 
+    {
         let [term, options] = card.split('|');
         previewContent += `<div>${term} - ${options}</div>`;
     });
     return previewContent.length > 75 ? previewContent.substring(0, 75) + '...' : previewContent;
 }
 
-function showQuizSetup(deckName) {
+function showQuizSetup(deckName) 
+{
     deckGrid.style.display = 'none';
     quizSetup.style.display = 'block';
     pageTitle.style.display = 'none';
     startQuizButton.onclick = () => startQuiz(deckName);
 }
 
-function startQuiz(deckName) {
+function startQuiz(deckName) 
+{
     questionCount = parseInt(questionCountInput.value);
 
-    if (isNaN(questionCount) || questionCount < 1) {
+    if (isNaN(questionCount) || questionCount < 1) 
+    {
         alert("Please enter a valid number of questions.");
         return;
     }
@@ -86,11 +97,13 @@ function startQuiz(deckName) {
     // Fetch the deck from prebuilt decks or allDecks
     fetch('/prebuilt_decks.json')
         .then(response => response.json())
-        .then(prebuiltDecks => {
+        .then(prebuiltDecks => 
+        {
             let fullDeck = deckName in prebuiltDecks ? [...prebuiltDecks[deckName]] : [...allDecks[deckName]];
             
             // Check if the number of questions exceeds the deck length
-            if (questionCount > fullDeck.length) {
+            if (questionCount > fullDeck.length) 
+            {
                 alert(`The number of questions exceeds the deck size. There are only ${fullDeck.length} questions available.`);
                 return;
             }
@@ -111,12 +124,14 @@ function startQuiz(deckName) {
             updateProgressBar();
             quizNext(deckName);
         })
-        .catch(error => {
+        .catch(error => 
+        {
             console.error('Error loading prebuilt decks:', error);
             let fullDeck = [...allDecks[deckName]];
 
             // Check if the number of questions exceeds the deck length
-            if (questionCount > fullDeck.length) {
+            if (questionCount > fullDeck.length) 
+            {
                 alert(`The number of questions exceeds the deck size. There are only ${fullDeck.length} questions available.`);
                 return;
             }
@@ -139,44 +154,53 @@ function startQuiz(deckName) {
         });
 }
 
-function startStopWatch() {
+function startStopWatch() 
+{
     startTime = Date.now();
     stopWatchInterval = setInterval(updateStopWatch, 1000);
 }
 
-function updateStopWatch() {
+function updateStopWatch() 
+{
     let elapsedTime = Math.floor((Date.now() - startTime) / 1000);
     let minutes = Math.floor(elapsedTime / 60);
     let seconds = elapsedTime % 60;
     timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 }
 
-function updateProgressBar() {
+function updateProgressBar() 
+{
     let progress = ((currentQuestionIndex) / questionCount) * 100;
     progressBar.style.width = `${progress}%`;
 }
 
-function showPerfectScore() {
+function showPerfectScore() 
+{
     let perfectScoreElement = document.getElementById('perfect-score');
     perfectScoreElement.classList.add('show');
-    setTimeout(() => {
+    setTimeout(() => 
+    {
         perfectScoreElement.classList.remove('show');
     }, 5000);
 }
 
-function checkForPerfectScore() {
+function checkForPerfectScore() 
+{
     if(correct == questionCount) showPerfectScore();
 }
 
-function quizNext(deckName) {
-    if(currentQuestionIndex === questionCount) {
+function quizNext(deckName) 
+{
+    if(currentQuestionIndex === questionCount) 
+    {
         updateProgressBar();
         checkForPerfectScore();
         timerContainer.style.display = 'none';
         clearInterval(stopWatchInterval);
         let finalTime = timerDisplay.textContent;
         quizContainer.innerHTML = `<h2>You have completed the quiz!</h2> <p>Time Taken: ${finalTime}</p>`;
-        let quizResult = {
+        let quizResult = 
+        {
             total: questionCount,
             correct: correct,
             wrong: wrong,
@@ -201,18 +225,24 @@ function quizNext(deckName) {
     updateProgressBar();
 
     let buttons = document.querySelectorAll('.btn-added');
-    buttons.forEach(button => {
-        button.addEventListener('click', function() {
-            if(this.textContent === answer.trim()) {
+    buttons.forEach(button => 
+    {
+        button.addEventListener('click', function() 
+        {
+            if(this.textContent === answer.trim())
+            {
                 correct++;
-            } else {
+            } 
+            else 
+            {
                 wrong++;
             }
 
             progress.innerHTML = `Question ${currentQuestionIndex + 1}/${questionCount} | Correct: ${correct} | Wrong: ${wrong}`;
 
             currentQuestionIndex++;
-            setTimeout(() => {
+            setTimeout(() => 
+            {
                 result.innerHTML = '';
                 quizNext(deckName);
             }, 0);
