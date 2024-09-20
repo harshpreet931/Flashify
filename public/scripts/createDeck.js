@@ -23,17 +23,22 @@ document.getElementById('deckForm').addEventListener('submit', function(e) {
 });
 
 function validateInput(input) {
-    let parts = input.split('|');
-    if(parts !== 3) return false;
-
-    parts = parts.map(part => part.trim());
-
-    if(parts[0].length === 0 || parts[1].length === 0 || parts[2].length === 0) return false;
+    let parts = input.trim().split('|');
+    if(parts.length !== 3) return false;
 
     let options = parts[1].split(',');
-    if(options.length < 2 || options.length > 4) return false;
+    if(options.length < 2) return false;
 
-    return options.every(option => option.trim().length > 0);
+    for(let i = 0; i < options.length; i++) options[i] = options[i].trim();
+
+    let correctAnswer = parts[2].trim();
+
+    if(options.indexOf(correctAnswer) === -1) {
+        alert('Correct answer must be one of the options.');
+        return false;
+    }
+
+    return true;
 }
 
 function clearForm() {
