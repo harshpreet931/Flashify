@@ -8,15 +8,17 @@
     <link rel="icon" type="image/svg+xml" href="./images/favicon.png">
 </head>
 <body>
-    <a href="/" id="btn-back-a">
-        <button id="btn-back">
-            <span class="back-text">Go Back</span>
-            <span class="back-icon"><</span>
-        </button>
-    </a>
+    <!-- Back Button-->
+    <a href="/" id="btn-back-a"> <button id="btn-back"> <span class="back-text">Go Back</span> <span class="back-icon"><</span> </button> </a>
+    
+    <!-- Main Container -->
     <div class="container">
         <h1 id="pageTitle">Choose a Deck</h1>
+        
+        <!-- Grid to display available decks Prebuilt + Custom -->
         <div id="deckGrid" class="deck-grid"></div>
+
+        <!-- Quiz setup section (hidden by default) -->
         <div id="quizSetup" style="display: none;">
             <h2>Quiz Setup</h2>
             <label for="questionCount">Number of Questions:</label>
@@ -24,15 +26,21 @@
             <button id="startQuiz">Start Quiz</button>
         </div>
         
+        <!-- Quiz section (hidden by default) -->
         <div id="quizContainer" style="display: none;"> </div>
+        
+        <!-- Progress bar and timer section (hidden by default only activates when a quiz is started) -->
         <div id="progressBarContainer" style="display: none;">
             <div id="progressBar"></div>
         </div>
         <div id="timerContainer" style="display: none;">Time: <span id="timer">00:00</span></div>
 
+        <!-- Results and Progress display (hidden by default) -->
         <div id="result"></div>
         <div id="progress"></div>
     </div>
+
+    <!-- Perfect Score animation container -->
     <div id="perfect-score" class="perfect-score-container">
         <div class="perfect-score-text">PERFECT SCORE!</div>
     </div>

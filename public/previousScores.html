@@ -3,17 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Previous Scores</title>
+    <title>Previous Scores - Flashify</title>
     <link rel="stylesheet" href="./styles/previousScores_styles.css">
     <link rel="icon" type="image/svg+xml" href="./images/favicon.png">
 </head>
 <body>
+    <!-- Back Button & Clear Scores Button-->
     <a href="/"><button id="btn-back"><span class="back-text">Go Back</span><span class="back-icon">&lt;</span></button></a>
     <button id="btn-clear" style="display: none;">Clear Scores</button>
+    
+    <!-- Main Container -->
     <div class="container">
         <h1 class="prev">Previous Scores</h1>
+
+        <!-- Container for displaying scores -->
         <div class="scores"></div>
     </div>
+    
     <script src="./scripts/previousScores.js"></script>
 </body>
 </html>

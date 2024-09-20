@@ -8,23 +8,29 @@
     <link rel="icon" type="image/svg+xml" href="./images/favicon.png">
 </head>
 <body>
+    <!-- Back Button -->
     <a href="/"><button id="btn-back"><span class="back-text">Go Back</span><span class="back-icon">&lt;</span></button></a>
 
+    <!-- Main Container -->
     <div class="container">
         <h1 id="title">Create A Deck</h1>
 
+        <!-- Format Explanation for adding card -->
         <div class="format-explanation">
             <p>Format: Question | Option1, Option2, Option3, Option4 | Answer</p>
         </div>
 
+        <!-- Form for adding new cards -->
         <form id="deckForm">
             <input type="text" id="deckName" placeholder="Enter Deck Name" required>
             <input type="text" id="deckInput" placeholder="Enter your Card">
             <button type="submit" class="action-button">Add Card</button>
         </form>
 
+        <!-- Button to save the deck -->
         <button id="saveDeck" class="action-button">Save Deck</button>
 
+        <!-- Section to display the current deck we are building -->
         <div class="deck-section">
             <h2>Your current deck</h2>
             <div id="deckShow">
@@ -32,12 +38,14 @@
             </div>
         </div>
 
+        <!-- Section to display all the custom made decks -->
         <div class="deck-section">
             <h2>All Decks</h2>
             <div id="allDecks" class="deck-grid"></div>    
         </div>
     </div>
 
+    <!-- Modal for editing a deck -->
     <div id="editModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
