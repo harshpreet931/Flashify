@@ -32,7 +32,7 @@ Flashify is a fully responsive web-based application designed to enhance your le
 
 3. Install dependencies:
    ```
-   npm i
+   npm install
    ```
 
 4. Start the server:
