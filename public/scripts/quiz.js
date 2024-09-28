@@ -217,7 +217,14 @@ function initQuiz()
 
         let card = currentDeck[currentQuestionIndex];
         let [term, options, answer] = card.split('|');
-        let optionsArray = options.split(',');
+        let optionsArray = options.split(',').map(option => option.trim());
+
+        // Shuffle the options
+        for(let i = optionsArray.length - 1; i > 0; i--)
+        {
+            const j = Math.floor(Math.random() * (i + 1));
+            [optionsArray[i], optionsArray[j]] = [optionsArray[j], optionsArray[i]];
+        }
 
         quizContainer.innerHTML = `
             <h1>${term}</h1>
